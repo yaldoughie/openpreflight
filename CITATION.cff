@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: 'If you use OpenPreflight, please cite this software.'
+title: OpenPreflight
+type: software
+version: 1.0.0
+date-released: 2026-07-18
+license: GPL-2.0-or-later
+repository-code: 'https://REPLACE_BEFORE_RELEASE.invalid/openpreflight'
+authors:
+  - name: 'OpenPreflight contributors'
