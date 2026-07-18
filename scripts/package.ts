@@ -155,7 +155,7 @@ await writeFile(
       version: '1.0.0',
       createdAt: releaseDate.toISOString(),
       artifacts: artifacts.map((artifact) => artifact.split(/[\\/]/).at(-1)),
-      dockerImage: 'ghcr.io/REPLACE_BEFORE_RELEASE/openpreflight:1.0.0',
+      dockerImage: 'ghcr.io/yaldoughie/openpreflight:1.0.0',
     },
     null,
     2,

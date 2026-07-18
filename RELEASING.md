@@ -1,6 +1,6 @@
 # Releasing OpenPreflight
 
-1. Replace every `REPLACE_BEFORE_RELEASE` value and verify the private security channel.
+1. Verify repository URLs, package namespace, and the private security channel.
 2. Complete `docs/release-checklist.md` and `VERIFICATION.md` from a clean clone.
 3. Run `pnpm install --frozen-lockfile`, `composer install`, all lint/type/test/integration/e2e/demo commands, audits, schema/link/secret checks, and container scans.
 4. Apply Changesets, update `CHANGELOG.md`, and verify SemVer compatibility.

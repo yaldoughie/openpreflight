@@ -7,10 +7,10 @@
 | 1.x                  | Supported after public release                 |
 | Pre-release branches | Best effort; never use with irreplaceable data |
 
-Do not open a public issue for a suspected vulnerability. Before publication,
-replace `REPLACE_BEFORE_RELEASE_SECURITY_CONTACT` with a monitored private
-address or private GitHub Security Advisories link. Public release is blocked
-until that channel exists.
+Do not open a public issue for a suspected vulnerability. Submit reports through
+[GitHub Private Vulnerability Reporting](https://github.com/yaldoughie/openpreflight/security/advisories/new).
+If that private form is unavailable, do not disclose the issue publicly; wait
+for the private channel to be restored.
 
 Include the affected version/commit, threat scenario, reproduction, impact,
 sanitized evidence, and suggested mitigation. Never send production exports,

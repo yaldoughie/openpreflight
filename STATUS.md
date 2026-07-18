@@ -29,6 +29,5 @@ the Docker/WordPress clean-room matrix and owner configuration remain blocked.
 
 ## Publication blockers
 
-- Replace repository owner, URLs, contributor slug, security contact, and example immutable Action SHA values.
 - Run and record the full demo, WordPress Agent PHPUnit suite, Docker network/resource tests, container scan, and Node 24 clean-room procedure.
 - Verify hosted GitHub release permissions, protected/signed tags, package credentials, provenance, and attestations.

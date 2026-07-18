@@ -74,9 +74,10 @@ with generated code or fixtures.
 | Secret scan/provenance/attestation         | Workflow is configured; hosted GitHub execution not available locally                                                               |
 | Clean-room dependency removal/reinstall    | Not repeated under Node 24; current dependency tree and lockfiles build successfully under host Node 22                             |
 
-## Owner values required before publication
+## Publication metadata
 
-Replace every `REPLACE_BEFORE_RELEASE*` value: GitHub owner/repository URLs,
-security contact/private advisory link, WordPress.org contributor slug, release
-container namespace, and example immutable Action SHA. Then complete every open
-item in `docs/release-checklist.md`.
+Repository URLs, maintainer authority, GHCR namespace, private GitHub reporting,
+and immutable Action examples are configured for `yaldoughie/openpreflight`.
+WordPress.org contributor metadata is intentionally omitted until a directory
+account is supplied. Complete every remaining open item in
+`docs/release-checklist.md` before publication.

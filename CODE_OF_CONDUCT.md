@@ -19,9 +19,8 @@ considered inappropriate in a professional setting.
 
 Maintainers clarify and enforce standards and may edit, reject, or remove
 contributions or temporarily/permanently ban participants. Report incidents
-privately using the `REPLACE_BEFORE_RELEASE_SECURITY_CONTACT` listed in the
-release checklist. Do not use a public issue. Until that real monitored contact
-is configured, this repository must not be publicly released.
+privately through [GitHub Private Vulnerability Reporting](https://github.com/yaldoughie/openpreflight/security/advisories/new)
+and begin the report title with `Code of Conduct`. Do not use a public issue.
 
 Enforcement follows the Contributor Covenant impact guidelines: correction for
 minor inappropriate behavior, warning for repeated incidents, temporary ban for

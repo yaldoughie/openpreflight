@@ -87,7 +87,7 @@ function sarifReport(report: OpenPreflightReport): string {
             driver: {
               name: 'OpenPreflight',
               version: report.openPreflightVersion,
-              informationUri: 'https://REPLACE_BEFORE_RELEASE.invalid/openpreflight',
+              informationUri: 'https://github.com/yaldoughie/openpreflight',
               rules: [
                 ...new Map(
                   suitable.map((finding) => [

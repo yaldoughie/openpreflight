@@ -13,7 +13,7 @@ jobs:
         with: { node-version: 24, cache: pnpm }
       - uses: shivammathur/setup-php@db91e1a0e48e84637d325a7ee4d2677e146ceec4 # 2.36.0
         with: { php-version: '8.1', coverage: none, tools: 'composer:v2' }
-      - run: test -z "$(grep -RIl 'REPLACE_BEFORE_RELEASE' . --exclude-dir=.git --exclude=docs/release-checklist.md)"
+      - run: test -z "$(grep -RIlE '[R]EPLACE_BEFORE_RELEASE|[R]EPLACE_WITH_' . --exclude-dir=.git)"
       - run: corepack enable && pnpm install --frozen-lockfile && composer install --no-interaction --prefer-dist
       - run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && composer lint && composer phpstan && pnpm build && pnpm package
       - run: docker build -f docker/runner/Dockerfile -t "openpreflight:${GITHUB_REF_NAME}" .

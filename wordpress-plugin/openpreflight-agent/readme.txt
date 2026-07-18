@@ -1,5 +1,4 @@
 === OpenPreflight Agent ===
-Contributors: REPLACE_BEFORE_RELEASE
 Tags: updates, testing, staging, woocommerce, regression
 Requires at least: 6.8
 Tested up to: 7.0

@@ -16,4 +16,4 @@ and Semantic Versioning.
 - WordPress Agent token, diagnostics, inventory, asynchronous export, and cleanup APIs.
 - CI, release packaging, checksums, SBOM, demo, governance, and security documentation.
 
-[1.0.0]: https://REPLACE_BEFORE_RELEASE.invalid/openpreflight/releases/tag/v1.0.0
+[1.0.0]: https://github.com/yaldoughie/openpreflight/releases/tag/v1.0.0

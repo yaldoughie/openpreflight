@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: OpenPreflight Agent
- * Plugin URI: https://REPLACE_BEFORE_RELEASE.invalid/openpreflight
+ * Plugin URI: https://github.com/yaldoughie/openpreflight
  * Description: Securely exports a WordPress site to a paired self-hosted OpenPreflight runner.
  * Version: 1.0.0
  * Requires at least: 6.8

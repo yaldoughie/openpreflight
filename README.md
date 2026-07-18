@@ -17,9 +17,9 @@ sharing feature.
 ## Project status
 
 Version 1.0.0 is under release-candidate verification. Core implementation is
-present, but publication is blocked until the owner metadata placeholders are
-replaced and the complete clean-room matrix in `VERIFICATION.md` passes. No
-badge is shown before its corresponding public workflow is configured.
+present, but publication remains blocked until the complete clean-room matrix
+in `VERIFICATION.md` passes. No badge is shown before its corresponding public
+workflow is configured.
 
 ![OpenPreflight local dashboard showing an empty, ready workspace](docs/assets/dashboard.png)
 
@@ -43,7 +43,7 @@ with Compose v2, 8 GiB RAM, and 10 GiB free disk. PHP 8.1+ and Composer 2 are
 needed for Agent development.
 
 ```bash
-git clone https://REPLACE_BEFORE_RELEASE.invalid/openpreflight.git
+git clone https://github.com/yaldoughie/openpreflight.git
 cd openpreflight
 cp .env.example .env
 corepack enable
