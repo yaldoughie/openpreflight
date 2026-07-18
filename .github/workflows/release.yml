@@ -5,7 +5,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 90
-    permissions: { contents: write, id-token: write, attestations: write }
+    permissions: { contents: write, packages: write, id-token: write, attestations: write }
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with: { fetch-depth: 0 }
@@ -16,15 +16,32 @@ jobs:
       - run: test -z "$(grep -RIlE '[R]EPLACE_BEFORE_RELEASE|[R]EPLACE_WITH_' . --exclude-dir=.git)"
       - run: corepack enable && pnpm install --frozen-lockfile && composer install --no-interaction --prefer-dist
       - run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && composer lint && composer phpstan && pnpm build && pnpm package
-      - run: docker build -f docker/runner/Dockerfile -t "openpreflight:${GITHUB_REF_NAME}" .
+      - name: Select runner image tag
+        run: echo "OPENPREFLIGHT_IMAGE=ghcr.io/yaldoughie/openpreflight:${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+      - run: docker build -f docker/runner/Dockerfile -t "$OPENPREFLIGHT_IMAGE" .
       - uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
         with:
           {
-            image-ref: 'openpreflight:${{ github.ref_name }}',
+            image-ref: '${{ env.OPENPREFLIGHT_IMAGE }}',
             severity: 'HIGH,CRITICAL',
             exit-code: '1',
             ignore-unfixed: true,
           }
+      - name: Authenticate to GitHub Container Registry
+        env: { GHCR_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+      - name: Publish runner image
+        id: image
+        run: |
+          docker push "$OPENPREFLIGHT_IMAGE"
+          digest="$(docker inspect --format='{{index .RepoDigests 0}}' "$OPENPREFLIGHT_IMAGE" | cut -d@ -f2)"
+          test -n "$digest"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        with:
+          subject-name: 'ghcr.io/yaldoughie/openpreflight'
+          subject-digest: '${{ steps.image.outputs.digest }}'
+          push-to-registry: true
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
         with: { subject-path: 'dist/release/*' }
       - uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
