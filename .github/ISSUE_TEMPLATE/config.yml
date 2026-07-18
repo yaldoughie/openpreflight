@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://REPLACE_BEFORE_RELEASE.invalid/openpreflight/security/advisories/new
+    about: Report privately. Never disclose a vulnerability or sensitive export publicly.
+  - name: Support and questions
+    url: https://REPLACE_BEFORE_RELEASE.invalid/openpreflight/discussions
+    about: Ask a sanitized non-security question.

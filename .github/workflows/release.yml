@@ -1,0 +1,32 @@
+name: Release
+on: { push: { tags: ['v*.*.*'] } }
+permissions: { contents: read }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions: { contents: write, id-token: write, attestations: write }
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with: { node-version: 24, cache: pnpm }
+      - uses: shivammathur/setup-php@db91e1a0e48e84637d325a7ee4d2677e146ceec4 # 2.36.0
+        with: { php-version: '8.1', coverage: none, tools: 'composer:v2' }
+      - run: test -z "$(grep -RIl 'REPLACE_BEFORE_RELEASE' . --exclude-dir=.git --exclude=docs/release-checklist.md)"
+      - run: corepack enable && pnpm install --frozen-lockfile && composer install --no-interaction --prefer-dist
+      - run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && composer lint && composer phpstan && pnpm build && pnpm package
+      - run: docker build -f docker/runner/Dockerfile -t "openpreflight:${GITHUB_REF_NAME}" .
+      - uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        with:
+          {
+            image-ref: 'openpreflight:${{ github.ref_name }}',
+            severity: 'HIGH,CRITICAL',
+            exit-code: '1',
+            ignore-unfixed: true,
+          }
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        with: { subject-path: 'dist/release/*' }
+      - uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
+        with:
+          { files: 'dist/release/*', generate_release_notes: true, fail_on_unmatched_files: true }

@@ -1,0 +1,12 @@
+title: '[Idea] '
+labels: [ideas]
+body:
+  - type: markdown
+    attributes:
+      {
+        value: 'Discuss non-security ideas only. Never post credentials, tokens, production exports, or personal data.',
+      }
+  - type: textarea
+    id: context
+    attributes: { label: Context and desired outcome }
+    validations: { required: true }

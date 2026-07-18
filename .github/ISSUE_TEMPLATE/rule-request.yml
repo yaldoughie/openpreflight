@@ -1,0 +1,24 @@
+name: Rule request
+description: Propose a deterministic regression rule.
+title: '[Rule]: '
+labels: [rule, enhancement]
+body:
+  - type: input
+    id: id
+    attributes: { label: Suggested rule ID }
+  - type: textarea
+    id: regression
+    attributes:
+      {
+        label: Regression and evidence,
+        description: 'Describe baseline/candidate signals without production data.',
+      }
+    validations: { required: true }
+  - type: dropdown
+    id: severity
+    attributes: { label: Suggested default severity, options: [info, warning, error, critical] }
+    validations: { required: true }
+  - type: textarea
+    id: falsepositives
+    attributes: { label: Expected noise, exceptions, and configuration }
+    validations: { required: true }

@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible non-security defect with sanitized evidence.
+title: '[Bug]: '
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      {
+        value: 'Do not paste credentials, Agent tokens, production exports, customer data, or unredacted logs. Possible vulnerabilities must use SECURITY.md, not this form.',
+      }
+  - type: input
+    id: version
+    attributes: { label: OpenPreflight version, placeholder: '1.0.0 or commit SHA' }
+    validations: { required: true }
+  - type: dropdown
+    id: install
+    attributes:
+      {
+        label: Installation method,
+        options: [Source checkout, Release archive, Docker image, Other],
+      }
+    validations: { required: true }
+  - type: input
+    id: host
+    attributes: { label: Host operating system, placeholder: 'Ubuntu 24.04 x86-64' }
+    validations: { required: true }
+  - type: input
+    id: docker
+    attributes: { label: Docker and Compose versions }
+    validations: { required: true }
+  - type: dropdown
+    id: source
+    attributes: { label: Source type, options: [Local path, Archive, WordPress Agent] }
+    validations: { required: true }
+  - type: input
+    id: wp
+    attributes: { label: WordPress and PHP versions }
+    validations: { required: true }
+  - type: textarea
+    id: reproduce
+    attributes: { label: Reproduction steps, description: 'Use a disposable sanitized fixture.' }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: Expected result }
+    validations: { required: true }
+  - type: textarea
+    id: actual
+    attributes:
+      {
+        label: Actual result and sanitized logs,
+        description: 'Include run ID/stage and remove all sensitive data.',
+      }
+    validations: { required: true }
+  - type: checkboxes
+    id: security
+    attributes:
+      {
+        label: Security check,
+        options:
+          [
+            {
+              label: 'I confirm this is not a possible security vulnerability and contains no sensitive data.',
+              required: true,
+            },
+          ],
+      }

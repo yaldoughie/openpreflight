@@ -1,0 +1,13 @@
+title: '[Question] '
+labels: [q-and-a]
+body:
+  - type: markdown
+    attributes: { value: 'Sanitize all logs. Vulnerabilities use the private SECURITY.md process.' }
+  - type: textarea
+    id: question
+    attributes:
+      {
+        label: Question,
+        description: 'Include version, platform, source type, and commands where useful.',
+      }
+    validations: { required: true }
