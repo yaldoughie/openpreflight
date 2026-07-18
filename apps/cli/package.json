@@ -1,0 +1,22 @@
+{
+  "name": "@openpreflight/cli",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "bin": {
+    "openpreflight": "./dist/index.js"
+  },
+  "dependencies": {
+    "@openpreflight/configuration": "workspace:*",
+    "@openpreflight/core": "workspace:*",
+    "@openpreflight/database": "workspace:*",
+    "@openpreflight/journey-schema": "workspace:*",
+    "@openpreflight/server": "workspace:*",
+    "@openpreflight/source-adapters": "workspace:*",
+    "better-sqlite3": "12.11.1",
+    "commander": "15.0.0",
+    "nanoid": "6.0.0",
+    "pino": "10.3.1",
+    "playwright": "1.61.1"
+  }
+}

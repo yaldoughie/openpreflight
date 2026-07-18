@@ -1,0 +1,23 @@
+services:
+  server:
+    build: { context: ., dockerfile: docker/runner/Dockerfile }
+    command: ['pnpm', '--filter', '@openpreflight/server', 'dev']
+    ports: ['127.0.0.1:4173:4173']
+    environment:
+      OPENPREFLIGHT_CONFIG: /workspace/openpreflight.config.yaml
+    volumes:
+      - ./:/workspace
+      - openpreflight-data:/workspace/.openpreflight
+    security_opt: [no-new-privileges:true]
+  worker:
+    build: { context: ., dockerfile: docker/runner/Dockerfile }
+    command: ['pnpm', '--filter', '@openpreflight/worker', 'start']
+    environment:
+      OPENPREFLIGHT_CONFIG: /workspace/openpreflight.config.yaml
+    volumes:
+      - ./:/workspace
+      - openpreflight-data:/workspace/.openpreflight
+      - //var/run/docker.sock:/var/run/docker.sock
+    security_opt: [no-new-privileges:true]
+volumes:
+  openpreflight-data: {}

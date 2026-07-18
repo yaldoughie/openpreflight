@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: woo-cart-quantity
+name: Cart quantity update
+steps:
+  - visit: { path: /cart/ }
+  - fill: { target: { css: '.qty' }, value: '2' }
+  - click: { target: { role: button, name: Update cart } }
+  - assertCartCount: 2

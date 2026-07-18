@@ -1,0 +1,7 @@
+schemaVersion: '1.0'
+id: rest-api
+name: REST API availability
+steps:
+  - visit: { path: /wp-json/ }
+  - expect: { target: { css: body }, state: visible }
+  - assertNoFailedRequests: true

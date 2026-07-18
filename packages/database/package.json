@@ -1,0 +1,11 @@
+{
+  "name": "@openpreflight/database",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@openpreflight/core": "workspace:*",
+    "better-sqlite3": "12.11.1"
+  }
+}

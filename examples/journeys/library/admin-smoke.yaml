@@ -1,0 +1,9 @@
+schemaVersion: '1.0'
+id: admin-login-smoke
+name: Admin login smoke test
+secrets: { username: OPENPREFLIGHT_WP_USERNAME, password: OPENPREFLIGHT_WP_PASSWORD }
+steps:
+  - loginAsWordPressUser: { usernameSecret: username, passwordSecret: password }
+  - visit: { path: /wp-admin/ }
+  - expect: { target: { role: heading, name: Dashboard }, state: visible }
+  - assertNoConsoleErrors: true

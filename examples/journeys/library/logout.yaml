@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: logout
+name: WordPress logout
+secrets: { username: OPENPREFLIGHT_WP_USERNAME, password: OPENPREFLIGHT_WP_PASSWORD }
+steps:
+  - loginAsWordPressUser: { usernameSecret: username, passwordSecret: password }
+  - logout: true
+  - expect: { target: { css: body.login }, state: visible }

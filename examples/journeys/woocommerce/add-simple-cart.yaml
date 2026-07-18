@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: woo-add-simple-cart
+name: Add simple product to cart
+variables: { productPath: /product/openpreflight-product/ }
+steps:
+  - addWooCommerceProductToCart: { path: '${productPath}' }
+  - expect: { target: { css: '.woocommerce-message' }, state: visible }
+  - assertCartCount: 1

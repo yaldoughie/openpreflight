@@ -1,0 +1,16 @@
+node_modules/
+.agents/
+.codex/
+.pnpm-store/
+vendor/
+dist/
+coverage/
+test-results/
+playwright-report/
+.openpreflight/
+.env
+*.log
+*.zip
+artifacts/
+wordpress-plugin/openpreflight-agent/vendor/
+wordpress-plugin/openpreflight-agent/.phpunit.cache/

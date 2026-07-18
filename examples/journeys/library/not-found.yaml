@@ -1,0 +1,7 @@
+schemaVersion: '1.0'
+id: not-found
+name: 404 page
+steps:
+  - visit: { path: /openpreflight-intentional-missing-page/ }
+  - expect: { target: { css: body }, state: visible }
+  - screenshot: { name: not-found, fullPage: true }

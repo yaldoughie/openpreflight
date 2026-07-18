@@ -1,0 +1,6 @@
+schemaVersion: '1.0'
+id: woo-product-search
+name: WooCommerce product search
+steps:
+  - visit: { path: '/?s=OpenPreflight&post_type=product' }
+  - expect: { target: { css: body }, state: visible }

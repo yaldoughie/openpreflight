@@ -1,0 +1,18 @@
+name: OpenPreflight
+description: Test WordPress updates in an isolated local runner
+author: OpenPreflight contributors
+inputs:
+  source: { description: Local WordPress source path, required: true }
+  config:
+    {
+      description: OpenPreflight configuration path,
+      required: false,
+      default: openpreflight.config.yaml,
+    }
+  updates: { description: Update selection or local package path, required: false, default: all }
+outputs:
+  report-directory: { description: Local report directory }
+runs:
+  using: node24
+  main: dist/index.js
+branding: { icon: check-circle, color: blue }

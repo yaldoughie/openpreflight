@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: woo-shop-archive
+name: WooCommerce shop archive
+steps:
+  - visit: { path: /shop/ }
+  - expect: { target: { css: '.products' }, state: visible }
+  - assertNoConsoleErrors: true
+  - screenshot: { name: shop, fullPage: true }

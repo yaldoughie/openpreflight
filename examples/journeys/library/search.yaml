@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: search
+name: WordPress search
+steps:
+  - visit: { path: '/?s=openpreflight' }
+  - expect: { target: { css: body }, state: visible }
+  - assertNoConsoleErrors: true
+  - assertNoFailedRequests: true

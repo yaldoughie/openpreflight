@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpreflight.dev/schemas/journey-1.0.json",
+  "title": "OpenPreflight journey 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "steps"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "environment": { "type": "object" },
+    "variables": {
+      "type": "object",
+      "additionalProperties": { "type": ["string", "number", "boolean"] }
+    },
+    "secrets": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" }
+    },
+    "defaults": { "type": "object" },
+    "mask": { "type": "array", "items": { "type": "string" } },
+    "steps": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/step" } }
+  },
+  "$defs": {
+    "target": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 2,
+      "propertyNames": {
+        "enum": [
+          "role",
+          "label",
+          "placeholder",
+          "text",
+          "title",
+          "alt",
+          "testId",
+          "name",
+          "css",
+          "xpath"
+        ]
+      },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "step": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "propertyNames": {
+        "enum": [
+          "visit",
+          "click",
+          "doubleClick",
+          "fill",
+          "clear",
+          "select",
+          "check",
+          "uncheck",
+          "press",
+          "hover",
+          "focus",
+          "upload",
+          "waitFor",
+          "waitForResponse",
+          "waitForRequest",
+          "expect",
+          "screenshot",
+          "setCookie",
+          "clearCookies",
+          "loginAsWordPressUser",
+          "logout",
+          "addWooCommerceProductToCart",
+          "assertCartCount",
+          "assertNoPhpFatal",
+          "assertNoConsoleErrors",
+          "assertNoFailedRequests",
+          "assertPaymentMethodsAvailable",
+          "assertShippingMethodsAvailable"
+        ]
+      },
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "number" },
+          { "type": "boolean" },
+          {
+            "type": "object",
+            "properties": { "target": { "$ref": "#/$defs/target" } },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  }
+}

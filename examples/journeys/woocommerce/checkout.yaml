@@ -1,0 +1,15 @@
+schemaVersion: '1.0'
+id: woo-guest-checkout
+name: WooCommerce guest checkout availability
+variables: { productPath: /product/openpreflight-product/ }
+secrets: { customerEmail: OPENPREFLIGHT_TEST_EMAIL }
+steps:
+  - addWooCommerceProductToCart: { path: '${productPath}' }
+  - visit: { path: /checkout/ }
+  - expect: { target: { css: '.woocommerce-billing-fields' }, state: visible }
+  - fill: { target: { name: billing_first_name }, value: Test }
+  - fill: { target: { name: billing_last_name }, value: Customer }
+  - fill: { target: { name: billing_email }, secret: customerEmail }
+  - assertShippingMethodsAvailable: true
+  - assertPaymentMethodsAvailable: true
+  - screenshot: { name: checkout, fullPage: true }

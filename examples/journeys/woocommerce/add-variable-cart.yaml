@@ -1,0 +1,15 @@
+schemaVersion: '1.0'
+id: woo-add-variable-product
+name: Add variable product to cart
+description: Selects a configured variation and verifies that one item reaches the cart.
+variables:
+  productPath: /product/openpreflight-variable-product/
+  variationSelector: '.variations select'
+  variationValue: default
+steps:
+  - visit: { path: '${productPath}' }
+  - select: { target: { css: '${variationSelector}' }, value: '${variationValue}' }
+  - click: { target: { css: '.single_add_to_cart_button' } }
+  - expect: { target: { css: '.woocommerce-message' }, state: visible }
+  - assertCartCount: 1
+  - assertNoFailedRequests: true

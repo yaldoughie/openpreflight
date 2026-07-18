@@ -1,0 +1,10 @@
+schemaVersion: '1.0'
+id: woo-my-account
+name: WooCommerce My Account login
+secrets: { username: OPENPREFLIGHT_WP_USERNAME, password: OPENPREFLIGHT_WP_PASSWORD }
+steps:
+  - visit: { path: /my-account/ }
+  - fill: { target: { name: username }, secret: username }
+  - fill: { target: { name: password }, secret: password }
+  - click: { target: { role: button, name: Log in } }
+  - expect: { target: { css: '.woocommerce-MyAccount-navigation' }, state: visible }

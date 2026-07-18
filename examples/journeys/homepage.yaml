@@ -1,0 +1,14 @@
+schemaVersion: '1.0'
+id: homepage
+name: Homepage
+description: Loads the front page and checks HTTP, PHP, console, network, accessibility, and a visual checkpoint.
+environment: { locale: en-US, timezone: UTC, colorScheme: light }
+defaults: { timeout: 10000, waitUntil: networkidle }
+mask: ['[data-current-time]', '.dynamic-banner']
+steps:
+  - visit: { path: / }
+  - expect: { target: { css: body }, state: visible }
+  - assertNoPhpFatal: true
+  - assertNoConsoleErrors: true
+  - assertNoFailedRequests: true
+  - screenshot: { name: homepage, fullPage: true }

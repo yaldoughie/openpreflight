@@ -1,0 +1,7 @@
+schemaVersion: '1.0'
+id: woo-remove-cart-item
+name: Remove cart item
+steps:
+  - visit: { path: /cart/ }
+  - click: { target: { css: '.remove, .wc-block-cart-item__remove-link' } }
+  - expect: { target: { css: '.cart-empty, .wc-block-cart__empty-cart__title' }, state: visible }

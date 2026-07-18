@@ -1,0 +1,6 @@
+schemaVersion: '1.0'
+id: woo-coupon-form
+name: Coupon form presence
+steps:
+  - visit: { path: /cart/ }
+  - expect: { target: { name: coupon_code }, state: visible }

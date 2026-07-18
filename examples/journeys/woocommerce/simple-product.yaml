@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: woo-simple-product
+name: Simple product page
+variables: { productPath: /product/openpreflight-product/ }
+steps:
+  - visit: { path: '${productPath}' }
+  - expect: { target: { css: '.product' }, state: visible }
+  - expect: { target: { role: button, name: Add to cart }, state: visible }

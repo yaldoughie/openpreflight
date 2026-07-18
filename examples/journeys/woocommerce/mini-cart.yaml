@@ -1,0 +1,7 @@
+schemaVersion: '1.0'
+id: woo-mini-cart
+name: Mini-cart update
+variables: { productPath: /product/openpreflight-product/ }
+steps:
+  - addWooCommerceProductToCart: { path: '${productPath}' }
+  - expect: { target: { css: '.widget_shopping_cart, .wc-block-mini-cart' }, state: visible }

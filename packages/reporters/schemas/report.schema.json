@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpreflight.dev/schemas/report-1.0.json",
+  "title": "OpenPreflight report 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "openPreflightVersion",
+    "run",
+    "site",
+    "updates",
+    "findings",
+    "verdict",
+    "generatedAt",
+    "disclaimers"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "openPreflightVersion": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "run": {
+      "type": "object",
+      "required": ["id", "stage"],
+      "properties": {
+        "id": { "type": "string" },
+        "stage": { "type": "string" },
+        "baselineAt": { "type": "string" },
+        "candidateAt": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "site": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "sourceId": { "type": "string" },
+        "wordpressVersion": { "type": "string" },
+        "phpVersion": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "updates": { "type": "array", "items": { "type": "object" } },
+    "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "verdict": {
+      "type": "object",
+      "required": ["verdict", "reasons", "counts"],
+      "properties": {
+        "verdict": { "enum": ["pass", "warn", "fail", "error", "cancelled"] },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "counts": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "journeys": { "type": "array", "items": { "type": "object" } },
+    "diagnostics": { "type": "object" },
+    "sanitization": { "type": "array", "items": { "type": "object" } },
+    "artifacts": { "type": "array", "items": { "type": "object" } },
+    "skipped": { "type": "array", "items": { "type": "object" } },
+    "disclaimers": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "ruleId",
+        "ruleVersion",
+        "title",
+        "description",
+        "severity",
+        "state",
+        "category",
+        "evidence"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "ruleId": { "type": "string" },
+        "ruleVersion": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": { "enum": ["info", "warning", "error", "critical"] },
+        "state": { "enum": ["new", "existing", "resolved", "changed"] },
+        "category": { "type": "string" },
+        "evidence": { "type": "array" },
+        "remediation": { "type": "string" },
+        "journeyId": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

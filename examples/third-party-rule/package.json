@@ -1,0 +1,10 @@
+{
+  "name": "@openpreflight-example/heading-rule",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "peerDependencies": {
+    "@openpreflight/core": "1.0.0"
+  }
+}

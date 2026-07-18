@@ -1,0 +1,7 @@
+schemaVersion: '1.0'
+id: contact-form-presence
+name: Contact form presence
+variables: { contactPath: /contact/ }
+steps:
+  - visit: { path: '${contactPath}' }
+  - expect: { target: { css: form }, state: visible }

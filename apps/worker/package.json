@@ -1,0 +1,23 @@
+{
+  "name": "@openpreflight/worker",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@openpreflight/browser-runner": "workspace:*",
+    "@openpreflight/configuration": "workspace:*",
+    "@openpreflight/core": "workspace:*",
+    "@openpreflight/database": "workspace:*",
+    "@openpreflight/environment-manager": "workspace:*",
+    "@openpreflight/journey-schema": "workspace:*",
+    "@openpreflight/reporters": "workspace:*",
+    "@openpreflight/rule-engine": "workspace:*",
+    "@openpreflight/source-adapters": "workspace:*",
+    "better-sqlite3": "12.11.1",
+    "playwright": "1.61.1",
+    "nanoid": "6.0.0"
+  }
+}

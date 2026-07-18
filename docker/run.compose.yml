@@ -1,0 +1,125 @@
+name: openpreflight-run
+
+services:
+  db:
+    image: mariadb:11.8.3
+    environment:
+      MARIADB_DATABASE: openpreflight
+      MARIADB_USER: openpreflight
+      MARIADB_PASSWORD: openpreflight
+      MARIADB_ROOT_PASSWORD: local-disposable-only
+    command: ['--skip-name-resolve', '--max-connections=50']
+    healthcheck:
+      test: ['CMD', 'healthcheck.sh', '--connect', '--innodb_initialized']
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    networks: [site]
+    volumes: [database:/var/lib/mysql]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID]
+    pids_limit: 128
+    mem_limit: 768m
+    cpus: 1
+
+  mail:
+    image: axllent/mailpit:v1.27.8
+    networks: [site]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    pids_limit: 64
+    mem_limit: 128m
+    read_only: true
+    tmpfs: [/tmp]
+
+  egress-proxy:
+    image: ubuntu/squid:6.13-25.10_beta
+    networks: [site, egress]
+    volumes:
+      - ${OPENPREFLIGHT_PROXY_CONFIG}:/etc/squid/squid.conf:ro
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE, SETGID, SETUID, CHOWN]
+    pids_limit: 128
+    mem_limit: 256m
+    read_only: true
+    tmpfs: [/var/log/squid, /var/spool/squid, /run]
+
+  wordpress:
+    image: wordpress:${OPENPREFLIGHT_WORDPRESS_TAG:-7.0.1-php8.3-apache}
+    depends_on:
+      db: { condition: service_healthy }
+      mail: { condition: service_started }
+      egress-proxy: { condition: service_started }
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: openpreflight
+      WORDPRESS_DB_PASSWORD: openpreflight
+      WORDPRESS_DB_NAME: openpreflight
+      WORDPRESS_DEBUG: '1'
+      HTTP_PROXY: http://egress-proxy:3128
+      HTTPS_PROXY: http://egress-proxy:3128
+      NO_PROXY: db,mail,wordpress,localhost,127.0.0.1
+      OPENPREFLIGHT_ALLOWED_HOSTS: ${OPENPREFLIGHT_ALLOWED_HOSTS:-}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('DISABLE_WP_CRON', true);
+        define('WP_ENVIRONMENT_TYPE', 'staging');
+        define('WP_CACHE', false);
+        define('WP_HTTP_BLOCK_EXTERNAL', true);
+        define('WP_ACCESSIBLE_HOSTS', 'api.wordpress.org,downloads.wordpress.org');
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS http://127.0.0.1/wp-login.php >/dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks: [site]
+    ports: ['127.0.0.1::80']
+    volumes:
+      - wordpress:/var/www/html
+      - ./wordpress/openpreflight-safety.php:/var/www/html/wp-content/mu-plugins/openpreflight-safety.php:ro
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, SETGID, SETUID, NET_BIND_SERVICE]
+    pids_limit: 256
+    mem_limit: ${OPENPREFLIGHT_MEMORY_LIMIT:-2g}
+    cpus: ${OPENPREFLIGHT_CPU_LIMIT:-2}
+    tmpfs: [/tmp]
+
+  wpcli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      db: { condition: service_healthy }
+      wordpress: { condition: service_healthy }
+    user: '33:33'
+    working_dir: /var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: openpreflight
+      WORDPRESS_DB_PASSWORD: openpreflight
+      WORDPRESS_DB_NAME: openpreflight
+      HTTP_PROXY: http://egress-proxy:3128
+      HTTPS_PROXY: http://egress-proxy:3128
+      NO_PROXY: db,mail,wordpress,localhost,127.0.0.1
+      OPENPREFLIGHT_ALLOWED_HOSTS: ${OPENPREFLIGHT_ALLOWED_HOSTS:-}
+    networks: [site]
+    volumes:
+      - wordpress:/var/www/html
+      - ${OPENPREFLIGHT_ARTIFACTS}:/artifacts
+      - ${OPENPREFLIGHT_ARTIFACTS}/source:/source:ro
+      - ./wordpress/sanitize.php:/opt/openpreflight/sanitize.php:ro
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    pids_limit: 128
+    mem_limit: 512m
+    read_only: true
+    tmpfs: [/tmp, /home/www-data]
+
+networks:
+  site:
+    internal: true
+  egress: {}
+
+volumes:
+  database: {}
+  wordpress: {}

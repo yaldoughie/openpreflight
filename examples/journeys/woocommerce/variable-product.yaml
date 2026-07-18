@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: woo-variable-product
+name: Variable product selection
+variables: { productPath: /product/openpreflight-variable-product/ }
+steps:
+  - visit: { path: '${productPath}' }
+  - select: { target: { css: '.variations select' }, value: 'default' }
+  - expect: { target: { css: '.single_variation' }, state: visible }

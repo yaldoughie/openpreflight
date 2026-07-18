@@ -1,0 +1,9 @@
+schemaVersion: '1.0'
+id: demo-regressions
+name: Demo regression probes
+description: Exercises reproducible fixture-only HTTP and PHP regressions.
+steps:
+  - visit: { path: '/?openpreflight-functional=1' }
+  - assertNoFailedRequests: true
+  - visit: { path: '/?openpreflight-fatal=1' }
+  - assertNoFailedRequests: true

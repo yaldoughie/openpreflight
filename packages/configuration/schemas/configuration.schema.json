@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpreflight.dev/schemas/configuration-1.0.json",
+  "title": "OpenPreflight configuration 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "server": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "host": { "type": "string", "minLength": 1 },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "directory": { "type": "string", "minLength": 1 },
+        "retentionDays": { "type": "integer", "minimum": 0 },
+        "retainFailedRuns": { "type": "boolean" }
+      }
+    },
+    "docker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "networkMode": { "enum": ["offline", "restricted", "custom"] },
+        "memoryLimit": { "type": "string", "pattern": "^[1-9][0-9]*(?:m|g)$" },
+        "cpuLimit": { "type": "number", "exclusiveMinimum": 0 },
+        "timeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 1440 },
+        "allowedHosts": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "browser": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/browserProfile" }
+        }
+      }
+    },
+    "reports": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "formats": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["html", "json", "junit", "sarif"] }
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "redactEmails": { "type": "boolean" },
+        "redactQuerySecrets": { "type": "boolean" },
+        "rawExportRetentionMinutes": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "failOn": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["info", "warning", "error", "critical"] }
+        }
+      }
+    },
+    "sources": { "type": "array", "items": { "type": "object" } },
+    "performance": { "type": "object" }
+  },
+  "$defs": {
+    "browserProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "browser", "viewport"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "browser": { "enum": ["chromium", "firefox", "webkit"] },
+        "viewport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": { "type": "integer", "minimum": 240, "maximum": 7680 },
+            "height": { "type": "integer", "minimum": 240, "maximum": 7680 }
+          }
+        }
+      }
+    }
+  }
+}

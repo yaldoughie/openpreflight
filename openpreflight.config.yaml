@@ -1,0 +1,29 @@
+schemaVersion: '1.0'
+server:
+  host: 127.0.0.1
+  port: 4173
+storage:
+  directory: .openpreflight
+  retentionDays: 14
+  retainFailedRuns: true
+docker:
+  networkMode: restricted
+  memoryLimit: 2g
+  cpuLimit: 2
+  timeoutMinutes: 30
+browser:
+  profiles:
+    - id: desktop
+      browser: chromium
+      viewport: { width: 1440, height: 1000 }
+    - id: mobile
+      browser: chromium
+      viewport: { width: 390, height: 844 }
+reports:
+  formats: [html, json, junit, sarif]
+privacy:
+  redactEmails: true
+  redactQuerySecrets: true
+  rawExportRetentionMinutes: 0
+policies:
+  failOn: [critical, error]

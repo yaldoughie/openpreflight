@@ -1,0 +1,11 @@
+{
+  "name": "@openpreflight/reporters",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@openpreflight/core": "workspace:*",
+    "ajv": "8.20.0"
+  }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="wordpress-plugin/openpreflight-agent/tests/bootstrap.php" colors="true" cacheDirectory=".phpunit.cache">
+  <testsuites><testsuite name="OpenPreflight Agent"><directory>wordpress-plugin/openpreflight-agent/tests</directory></testsuite></testsuites>
+</phpunit>

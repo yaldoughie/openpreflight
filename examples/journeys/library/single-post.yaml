@@ -1,0 +1,8 @@
+schemaVersion: '1.0'
+id: single-post
+name: Single post
+variables: { postPath: /hello-world/ }
+steps:
+  - visit: { path: '${postPath}' }
+  - expect: { target: { role: article }, state: visible }
+  - assertNoConsoleErrors: true

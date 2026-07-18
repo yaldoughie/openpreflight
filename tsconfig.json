@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@openpreflight/core": ["./packages/core/src/index.ts"],
+      "@openpreflight/configuration": ["./packages/configuration/src/index.ts"],
+      "@openpreflight/database": ["./packages/database/src/index.ts"],
+      "@openpreflight/journey-schema": ["./packages/journey-schema/src/index.ts"],
+      "@openpreflight/reporters": ["./packages/reporters/src/index.ts"],
+      "@openpreflight/source-adapters": ["./packages/source-adapters/src/index.ts"],
+      "@openpreflight/environment-manager": ["./packages/environment-manager/src/index.ts"]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
+    "packages/**/*.ts",
+    "integrations/**/*.ts",
+    "examples/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/**/*.ts",
+    "*.ts"
+  ]
+}

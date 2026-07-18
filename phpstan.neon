@@ -1,0 +1,10 @@
+includes:
+  - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+  level: 8
+  paths:
+    - wordpress-plugin/openpreflight-agent/includes
+    - wordpress-plugin/openpreflight-agent/openpreflight-agent.php
+  excludePaths:
+    - wordpress-plugin/openpreflight-agent/vendor
+  treatPhpDocTypesAsCertain: false
