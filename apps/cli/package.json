@@ -17,6 +17,6 @@
     "commander": "15.0.0",
     "nanoid": "6.0.0",
     "pino": "10.3.1",
-    "playwright": "1.61.1"
+    "playwright": "1.62.0"
   }
 }
