@@ -11,7 +11,7 @@
   "dependencies": {
     "@fastify/cors": "11.3.0",
     "@fastify/sensible": "6.0.4",
-    "@fastify/static": "10.1.0",
+    "@fastify/static": "10.1.2",
     "@openpreflight/configuration": "workspace:*",
     "@openpreflight/core": "workspace:*",
     "@openpreflight/database": "workspace:*",
