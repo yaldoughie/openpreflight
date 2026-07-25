@@ -16,7 +16,7 @@
     "@openpreflight/reporters": "workspace:*",
     "@openpreflight/rule-engine": "workspace:*",
     "@openpreflight/source-adapters": "workspace:*",
-    "better-sqlite3": "12.11.1",
+    "better-sqlite3": "13.0.1",
     "playwright": "1.61.1",
     "nanoid": "6.0.0"
   }
